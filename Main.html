@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .button {
+      position: fixed;
+      left: 50%;
+      bottom: 15%;
+      transform: translateX(-50%);
+      border-radius: 50px;
+      background-color: white;
+      color: black;
+      padding: 15px 30px;
+      font-size: 24px;
+      text-decoration: none;
+      transition: background-color 0.5s ease;
+    }
+
+    .button:hover {
+      background-color: #eee;
+    }
+
+    .white-bg {
+      background-color: white;
+    }
+
+    .white-bg .button {
+      color: white;
+    }
+
+    .white-bg .button:hover {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="content">
+      <h1>Welcome to My Website</h1>
+      <!-- Add your content here -->
+    </div>
+    <a href="#" class="button">Get Started</a>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      var container = document.querySelector('.container');
+      var button = document.querySelector('.button');
+
+      if (window.scrollY > window.innerHeight) {
+        container.classList.add('white-bg');
+        button.classList.add('white-bg');
+      } else {
+        container.classList.remove('white-bg');
+        button.classList.remove('white-bg');
+      }
+    });
+  </script>
+</body>
+</html>
