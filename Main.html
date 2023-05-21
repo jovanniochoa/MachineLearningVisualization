@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="main.css">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Product+Sans&display=swap');
     body {
       background-color: black;
       color: white;
@@ -20,9 +22,9 @@
     }
 
     .button {
-      position: fixed;
+      position: absolute;
       left: 50%;
-      bottom: 15%;
+      bottom: 10%;
       transform: translateX(-50%);
       border-radius: 50px;
       background-color: white;
@@ -31,7 +33,10 @@
       font-size: 24px;
       text-decoration: none;
       transition: background-color 0.5s ease;
+      font-family: "Product Sans", Arial, sans-serif;
+      z-index: 3;
     }
+
 
     .button:hover {
       background-color: #eee;
@@ -48,17 +53,66 @@
     .white-bg .button:hover {
       background-color: #333;
     }
+
+    .team-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 50px;
+      background-color: white;
+    }
+    
+    .team-section img {
+      max-width: 200px;
+      height: auto;
+    }
+    
+    .team-section .about-me {
+      margin-top: 20px;
+    }
   </style>
+  
 </head>
 <body>
+
+  
   <div class="container">
     <div class="content">
-      <h1>Welcome to My Website</h1>
-      <!-- Add your content here -->
+      <h1 id="title" class="centered">
+        <span class="fancy">FireML</span>
+        The future of Machine Learning
+      </h1>
+
+      <i id="icon" class="fa-solid fa-chess centered"></i>
+      </a>
     </div>
+    <div id="tiles"></div>
     <a href="#" class="button">Get Started</a>
   </div>
 
+  <div class="team-section">
+    <div>
+      <img src="https://via.placeholder.com/200" alt="Team Member 1">
+      <div class="about-me">
+        Type here
+      </div>
+    </div>
+    <div>
+      <img src="https://via.placeholder.com/200" alt="Team Member 2">
+      <div class="about-me">
+        Type here
+      </div>
+    </div>
+    <div>
+      <img src="https://via.placeholder.com/200" alt="Team Member 3">
+      <div class="about-me">
+        Type here
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="main.js"></script>
   <script>
     window.addEventListener('scroll', function() {
       var container = document.querySelector('.container');
