@@ -1,60 +1,44 @@
-const prev = document.querySelector("#prev");
-const next = document.querySelector("#next");
+let items = document.querySelectorAll('.slider .item');
+    let next = document.getElementById('next');
+    let prev = document.getElementById('prev');
+    
+    let active = 0;
+    function loadShow(){
+        let stt = 0;
+        items[active].style.transform = `none`;
+        items[active].style.zIndex = 1;
+        items[active].style.filter = 'none';
+        items[active].style.opacity = 1;
+        for(var i = active + 1; i < items.length; i++){
+            stt++;
+            items[i].style.transform = `translateX(${120*stt}px) scale(${1 - 0.2*stt}) perspective(16px) rotateY(-1deg)`;
+            items[i].style.zIndex = -stt;
+            items[i].style.filter = 'blur(5px)';
+            items[i].style.opacity = stt > 2 ? 0 : 0.6;
+        }
+        stt = 0;
+        for(var i = active - 1; i >= 0; i--){
+            stt++;
+            items[i].style.transform = `translateX(${-120*stt}px) scale(${1 - 0.2*stt}) perspective(16px) rotateY(1deg)`;
+            items[i].style.zIndex = -stt;
+            items[i].style.filter = 'blur(5px)';
+            items[i].style.opacity = stt > 2 ? 0 : 0.6;
+        }
+    }
+    loadShow();
+    next.onclick = function(){
+        active = active + 1 < items.length ? active + 1 : active;
+        loadShow();
+    }
+    prev.onclick = function(){
+        active = active - 1 >= 0 ? active - 1 : active;
+        loadShow();
+    }
+    
+    // Get the website button
+    let websiteButton = document.querySelector('.website-button');
 
-let carouselVp = document.querySelector("#carousel-vp");
-
-let cCarouselInner = document.querySelector("#cCarousel-inner");
-let carouselInnerWidth = cCarouselInner.getBoundingClientRect().width;
-
-let leftValue = 0;
-
-// Variable used to set the carousel movement value (card's width + gap)
-const totalMovementSize =
-  parseFloat(
-    document.querySelector(".cCarousel-item").getBoundingClientRect().width,
-    10
-  ) +
-  parseFloat(
-    window.getComputedStyle(cCarouselInner).getPropertyValue("gap"),
-    10
-  );
-
-prev.addEventListener("click", () => {
-  if (!leftValue == 0) {
-    leftValue -= -totalMovementSize;
-    cCarouselInner.style.left = leftValue + "px";
-  }
-});
-
-next.addEventListener("click", () => {
-  const carouselVpWidth = carouselVp.getBoundingClientRect().width;
-  if (carouselInnerWidth - Math.abs(leftValue) > carouselVpWidth) {
-    leftValue -= totalMovementSize;
-    cCarouselInner.style.left = leftValue + "px";
-  }
-});
-
-const mediaQuery510 = window.matchMedia("(max-width: 510px)");
-const mediaQuery770 = window.matchMedia("(max-width: 770px)");
-
-mediaQuery510.addEventListener("change", mediaManagement);
-mediaQuery770.addEventListener("change", mediaManagement);
-
-let oldViewportWidth = window.innerWidth;
-
-function mediaManagement() {
-  const newViewportWidth = window.innerWidth;
-
-  if (leftValue <= -totalMovementSize && oldViewportWidth < newViewportWidth) {
-    leftValue += totalMovementSize;
-    cCarouselInner.style.left = leftValue + "px";
-    oldViewportWidth = newViewportWidth;
-  } else if (
-    leftValue <= -totalMovementSize &&
-    oldViewportWidth > newViewportWidth
-  ) {
-    leftValue -= totalMovementSize;
-    cCarouselInner.style.left = leftValue + "px";
-    oldViewportWidth = newViewportWidth;
-  }
-}
+    // Attach click event listener to the website button
+    websiteButton.addEventListener('click', function() {
+        window.location.href = 'https://www.google.com';
+    });
