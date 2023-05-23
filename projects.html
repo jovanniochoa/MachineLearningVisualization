@@ -1,119 +1,91 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="project.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-
-
-    <section>
-        <div id="cCarousel">
-          <div class="arrow" id="prev"><i class="fa-solid fa-chevron-left"></i></div>
-          <div class="arrow" id="next"><i class="fa-solid fa-chevron-right"></i></div>
-      
-          <div id="carousel-vp">
-            <div id="cCarousel-inner">
-      
-              <article class="cCarousel-item">
-                <img src="https://images.unsplash.com/photo-1564292284209-60cce69f08ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODQ0MTA1MTJ8&ixlib=rb-4.0.3&q=80&w=400" alt="Moon">
-                <div class="infos">
-                  <h3>Title 1 / 6</h3>
-                  <button type="button">See</button>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="projects.css">
+    </head>
+    <body>
+        
+        <div class="slider">
+            <div class="item">
+                <h1>Project 1</h1>
+                <div class="image-container">
+                  <img src="Temporary.png" alt="Project Image">
                 </div>
-              </article>
-      
-              <article class="cCarousel-item">
-                <img src="https://images.unsplash.com/photo-1564292284209-60cce69f08ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODQ0MTA1MTJ8&ixlib=rb-4.0.3&q=80&w=400" alt="Moon">
-                <div class="infos">
-                  <h3>Title 2 / 6</h3>
-                  <button type="button">See</button>
+                <div class="text-container">
+                  <p>Used machine learning to determine if a song was happy or sad.</p>
                 </div>
-              </article>
-      
-              <article class="cCarousel-item">
-                <img src="https://images.unsplash.com/photo-1564292284209-60cce69f08ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODQ0MTA1MTJ8&ixlib=rb-4.0.3&q=80&w=400" alt="Moon">
-                <div class="infos">
-                  <h3>Title 3 / 6</h3>
-                  <button type="button">See</button>
+                <div class="button-container">
+                  <button class="website-button">Visit Google</button>
                 </div>
-              </article>
-      
-              <article class="cCarousel-item">
-                <img src="https://images.unsplash.com/photo-1564292284209-60cce69f08ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODQ0MTA1MTJ8&ixlib=rb-4.0.3&q=80&w=400" alt="Moon">
-                <div class="infos">
-                  <h3>Title 4 / 6</h3>
-                  <button type="button">See</button>
-                </div>
-              </article>
-      
-              <article class="cCarousel-item">
-                <img src="https://images.unsplash.com/photo-1564292284209-60cce69f08ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODQ0MTA1MTJ8&ixlib=rb-4.0.3&q=80&w=400" alt="Moon">
-                <div class="infos">
-                  <h3>Title 5 / 6</h3>
-                  <button type="button">See</button>
-                </div>
-              </article>
-      
-              <article class="cCarousel-item">
-                <img src="https://images.unsplash.com/photo-1564292284209-60cce69f08ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODQ0MTA1MTJ8&ixlib=rb-4.0.3&q=80&w=400" alt="Moon">
-                <div class="infos">
-                  <h3>Title 6 / 6</h3>
-                  <button type="button">See</button>
-                </div>
-              </article>
             </div>
+            <div class="item">
+              <h1>Project 2</h1>
+              <div class="image-container">
+                <img src="Temporary.png" alt="Project Image">
+              </div>
+              <div class="text-container">
+                <p>Used machine learning to determine if a song was happy or sad.</p>
+              </div>
+              <div class="button-container">
+                <button class="website-button">Visit Google</button>
+              </div>
           </div>
+          <div class="item">
+            <h1>Project 3</h1>
+            <div class="image-container">
+              <img src="Temporary.png" alt="Project Image">
+            </div>
+            <div class="text-container">
+              <p>Used machine learning to determine if a song was happy or sad.</p>
+            </div>
+            <div class="button-container">
+              <button class="website-button">Visit Google</button>
+            </div>
         </div>
-      </section>
-  
-
-  <form id="prediction-form">
-    <!-- Add input fields here for data collection -->
-    <input type="text" id="input-data" name="input-data" />
-    <button type="submit">Predict</button>
-  </form>
-
-  <div id="scatter-plot"></div>
-
-  <script src="projects.js"></script>
-  <script>
-    // Handle form submission
-    $('#prediction-form').on('submit', function(event) {
-      event.preventDefault();
-
-      // Get the input data from the form
-      var inputData = $('#input-data').val();
-
-      // Make the AJAX request to the predict endpoint
-      $.ajax({
-        url: '/predict',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ 'input-data': inputData }),
-        success: function(response) {
-          // Process the response
-          // ...
-        },
-        error: function(error) {
-          // Handle error
-          // ...
-        }
-      });
-    });
-
-    // Load the scatter plot
-    $.ajax({
-      url: '/scatter',
-      type: 'GET',
-      success: function(response) {
-        $('#scatter-plot').html(response);
-      },
-      error: function(error) {
-        // Handle error
-        // ...
-      }
-    });
-  </script>
-</body>
-</html>
+        <div class="item">
+          <h1>Project 4</h1>
+          <div class="image-container">
+            <img src="Temporary.png" alt="Project Image">
+          </div>
+          <div class="text-container">
+            <p>Used machine learning to determine if a song was happy or sad.</p>
+          </div>
+          <div class="button-container">
+            <button class="website-button">Visit Google</button>
+          </div>
+      </div>
+      <div class="item">
+        <h1>Project 5</h1>
+        <div class="image-container">
+          <img src="Temporary.png" alt="Project Image">
+        </div>
+        <div class="text-container">
+          <p>Used machine learning to determine if a song was happy or sad.</p>
+        </div>
+        <div class="button-container">
+          <button class="website-button">Visit Google</button>
+        </div>
+    </div>
+    <div class="item">
+      <h1>Project 6</h1>
+      <div class="image-container">
+        <img src="Temporary.png" alt="Project Image">
+      </div>
+      <div class="text-container">
+        <p>Used machine learning to determine if a song was happy or sad.</p>
+      </div>
+      <div class="button-container">
+        <button class="website-button">Visit Google</button>
+      </div>
+  </div>
+            <button id="next">></button>
+            <button id="prev"><</button>
+        </div>
+    
+        <script src="projects.js"></script>
+    </body>
+    </html>
