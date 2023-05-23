@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Example</title>
+    </head>
+    <body>
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" id="file-input" name="file">
+            <button type="submit">Upload</button>
+        </form>
+        <p>This is an example of a simple HTML page with one paragraph.</p>
+        <div id="result"></div>
+        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="{{ url_for('static', filename='musicClassification.js') }}"></script>
+    </body>
+</html>
