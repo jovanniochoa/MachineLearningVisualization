@@ -2,6 +2,7 @@
 <html>
 <head>
   <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="navbar.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Product+Sans&display=swap');
     body {
@@ -17,8 +18,10 @@
       min-height: 100vh;
     }
 
+
+
     .content {
-      padding: 20px;
+      padding: 80px 20px 20px;
     }
 
     .button {
@@ -36,7 +39,6 @@
       font-family: "Product Sans", Arial, sans-serif;
       z-index: 3;
     }
-
 
     .button:hover {
       background-color: #eee;
@@ -61,50 +63,61 @@
       padding: 50px;
       background-color: white;
     }
-    
+
     .team-section img {
       max-width: 200px;
       height: auto;
     }
-    
+
     .team-section .about-me {
       margin-top: 20px;
     }
   </style>
-  
+
 </head>
 <body>
 
-  
-  <div class="container">
-    <div class="content">
-      <h1 id="title" class="centered">
-        <span class="fancy">FireML</span>
-        The future of Machine Learning
-      </h1>
 
-      <i id="icon" class="fa-solid fa-chess centered"></i>
-      </a>
-    </div>
-    <div id="tiles"></div>
-    <a href="#" class="button">Get Started</a>
+<div class="container">
+  <nav class="navbar">
+    <a href="#" class="navbar-brand">FireML</a>
+    <ul class="navbar-links">
+      <li class="navbar-link"><a href="#" data-button="true">Home</a></li>
+      <li class="navbar-link"><a href="#" data-button="true">About</a></li>
+      <li class="navbar-link"><a href="#" data-button="true">Services</a></li>
+      <li class="navbar-link"><a href="#" data-button="true">Contact</a></li>      
+    </ul>
+  </nav>
+
+  <div class="content">
+    <h1 id="title" class="centered">
+      <span class="fancy">FireML</span>
+      The future of Machine Learning
+    </h1>
+
+    <i id="icon" class="fa-solid fa-chess centered"></i>
   </div>
+  <div id="tiles"></div>
+  <a href="#" class="button">Get Started</a>
+</div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="main.js"></script>
-  <script>
-    window.addEventListener('scroll', function() {
-      var container = document.querySelector('.container');
-      var button = document.querySelector('.button');
 
-      if (window.scrollY > window.innerHeight) {
-        container.classList.add('white-bg');
-        button.classList.add('white-bg');
-      } else {
-        container.classList.remove('white-bg');
-        button.classList.remove('white-bg');
-      }
-    });
-  </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="main.js"></script>
+<script>
+  window.addEventListener('scroll', function() {
+    var container = document.querySelector('.container');
+    var button = document.querySelector('.button');
+
+    if (window.scrollY > window.innerHeight) {
+      container.classList.add('white-bg');
+      button.classList.add('white-bg');
+    } else {
+      container.classList.remove('white-bg');
+      button.classList.remove('white-bg');
+    }
+  });
+</script>
 </body>
 </html>
