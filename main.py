@@ -50,25 +50,15 @@ class Frame:
         return dataframe
 
 
-# class Test(Frame):
-#     def __init__(self, directory):
-#         super().__init__(directory)
-#         self.cock = 'hi'
-#         self.create_df()
-#
-#
-# a = Test(DIR)
-#
-# print(a.path)
-
-
 class SoundDataset(Dataset):
     # annotations file keep track of the fold/filename to classid mapping
     # audio dir is path to the wav file
-    def __init__(self, dataframe, transformation, target_sample_rate):
+    def __init__(self, dataframe, transformation, target_sample_rate, num_samples, device):
         self.dataframe = dataframe
-        self.transformation = transformation
+        self.device = device
+        self.transformation = transformation.to(self.device)
         self.target_sample_rate = target_sample_rate
+        self.num_samples = num_samples
 
     # defines the length of the dataset, a.k.a the number of samples in the dataset
     def __len__(self):
@@ -81,13 +71,32 @@ class SoundDataset(Dataset):
         label = self._get_audio_sample_label(index)
         # get waveform and sample rate of wavefile
         signal, sr = torchaudio.load(audio_sample_path)
+        # putting signal on gpu
+        signal = signal.to(self.device)
         # make signals have all the same sample rates
         signal = self._resample_if_necessary(signal, sr)
         # turn waveform from multichannel to mono
         signal = self._mix_down_if_necessary(signal)
+        # if audio signal has too many samples, cut so that it has correct number of samples
+        signal = self._cut_if_necessary(signal)
+        # if not enough samples, add right padding to audio signal
+        signal = self._right_pad_if_necessary(signal)
         # transform signal as a waveform to a mel spectrogram
         signal = self.transformation(signal)
         return signal, label
+
+    def _cut_if_necessary(self, signal):
+        if signal.shape[1] > self.num_samples:
+            signal = signal[:, :self.num_samples]
+        return signal
+
+    def _right_pad_if_necessary(self, signal):
+        length_signal = signal.shape[1]
+        if length_signal < self.num_samples:
+            num_missing_samples = self.num_samples - length_signal
+            last_dim_padding = (0, num_missing_samples)
+            signal = torch.nn.functional.pad(signal, last_dim_padding)
+        return signal
 
     def _resample_if_necessary(self, signal, sr):
         if sr != self.target_sample_rate:
@@ -109,7 +118,14 @@ class SoundDataset(Dataset):
 
 if __name__ == "__main__":
     DIR = 'Data/genres_original'
-    SAMPLE_RATE = 16000
+    SAMPLE_RATE = 22050
+    NUM_SAMPLES = 22050
+
+    if torch.cuda.is_available():
+        device = "cuda"
+    else:
+        device = "cpu"
+    print(f"Using device {device}")
 
     mel_spectrogram = torchaudio.transforms.MelSpectrogram(
         sample_rate=SAMPLE_RATE,
@@ -120,7 +136,7 @@ if __name__ == "__main__":
 
     data = Frame(DIR)
     df = data.create_df()
-    music_ds = SoundDataset(df, mel_spectrogram, SAMPLE_RATE)
+    music_ds = SoundDataset(df, mel_spectrogram, SAMPLE_RATE, NUM_SAMPLES, device)
     print(f"There are {len(music_ds)} samples in the dataset.")
     signal, label = music_ds[0]
 
