@@ -1,9 +1,7 @@
 import pandas as pd
 from torch.utils.data import Dataset
 import torchaudio
-
-
-# DIR = 'Data/genres_original'
+import torch
 
 
 class Frame:
@@ -67,8 +65,10 @@ class Frame:
 class SoundDataset(Dataset):
     # annotations file keep track of the fold/filename to classid mapping
     # audio dir is path to the wav file
-    def __init__(self, dataframe):
-        self.dataframe = df
+    def __init__(self, dataframe, transformation, target_sample_rate):
+        self.dataframe = dataframe
+        self.transformation = transformation
+        self.target_sample_rate = target_sample_rate
 
     # defines the length of the dataset, a.k.a the number of samples in the dataset
     def __len__(self):
@@ -81,7 +81,24 @@ class SoundDataset(Dataset):
         label = self._get_audio_sample_label(index)
         # get waveform and sample rate of wavefile
         signal, sr = torchaudio.load(audio_sample_path)
+        # make signals have all the same sample rates
+        signal = self._resample_if_necessary(signal, sr)
+        # turn waveform from multichannel to mono
+        signal = self._mix_down_if_necessary(signal)
+        # transform signal as a waveform to a mel spectrogram
+        signal = self.transformation(signal)
         return signal, label
+
+    def _resample_if_necessary(self, signal, sr):
+        if sr != self.target_sample_rate:
+            resampler = torchaudio.transforms.Resample(sr, self.target_sample_rate)
+            signal = resampler(signal)
+        return signal
+
+    def _mix_down_if_necessary(self, signal):
+        if signal.shape[0] > 1:
+            signal = torch.min(signal, dim=0, keepdim=True)
+        return signal
 
     def _get_audio_sample_path(self, index):
         return self.dataframe.iloc[index][0]
@@ -90,18 +107,20 @@ class SoundDataset(Dataset):
         return self.dataframe.iloc[index][1]
 
 
-# create df from data
-# df = Frame(DIR).create_df()
-# create sound dataset
-# a = SoundDataset(df)
-# print(a._get_audio_sample_path(0))
-# print(a._get_audio_sample_label(0))
-
 if __name__ == "__main__":
     DIR = 'Data/genres_original'
+    SAMPLE_RATE = 16000
+
+    mel_spectrogram = torchaudio.transforms.MelSpectrogram(
+        sample_rate=SAMPLE_RATE,
+        n_fft=1024,
+        hop_length=512,
+        n_mels=64
+    )
+
     data = Frame(DIR)
     df = data.create_df()
-    music_ds = SoundDataset(df)
+    music_ds = SoundDataset(df, mel_spectrogram, SAMPLE_RATE)
     print(f"There are {len(music_ds)} samples in the dataset.")
     signal, label = music_ds[0]
 
