@@ -1,7 +1,9 @@
 import pandas as pd
 from torch.utils.data import Dataset
+import torchaudio
 
-DIR = 'Data/genres_original'
+
+# DIR = 'Data/genres_original'
 
 
 class Frame:
@@ -30,9 +32,9 @@ class Frame:
         for i in range(len(genre_list)):
             for j in range(100):
                 if j < 10:
-                    genres_dic[f'{genre_list[i]}'].append(f'{self.dir}/{genre_list[i]}/{genre_list[i]}.000{j}.wav')
+                    genres_dic[f'{genre_list[i]}'].append(f'{self.dir}/{genre_list[i]}/{genre_list[i]}.0000{j}.wav')
                 else:
-                    genres_dic[f'{genre_list[i]}'].append(f'{self.dir}/{genre_list[i]}/{genre_list[i]}.00{j}.wav')
+                    genres_dic[f'{genre_list[i]}'].append(f'{self.dir}/{genre_list[i]}/{genre_list[i]}.000{j}.wav')
         self.path = genres_dic
         self.genre = genre_list
         # return genres_dic, genre_list
@@ -77,10 +79,30 @@ class SoundDataset(Dataset):
         audio_sample_path = self._get_audio_sample_path(index)
         # get label associated with audio file path based on index
         label = self._get_audio_sample_label(index)
+        # get waveform and sample rate of wavefile
+        signal, sr = torchaudio.load(audio_sample_path)
+        return signal, label
+
+    def _get_audio_sample_path(self, index):
+        return self.dataframe.iloc[index][0]
+
+    def _get_audio_sample_label(self, index):
+        return self.dataframe.iloc[index][1]
 
 
 # create df from data
-df = Frame(DIR).create_df()
+# df = Frame(DIR).create_df()
+# create sound dataset
+# a = SoundDataset(df)
+# print(a._get_audio_sample_path(0))
+# print(a._get_audio_sample_label(0))
 
-a = SoundDataset(df)
-print(a.__len__())
+if __name__ == "__main__":
+    DIR = 'Data/genres_original'
+    data = Frame(DIR)
+    df = data.create_df()
+    music_ds = SoundDataset(df)
+    print(f"There are {len(music_ds)} samples in the dataset.")
+    signal, label = music_ds[0]
+
+    a = 1
