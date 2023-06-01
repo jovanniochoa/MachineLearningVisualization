@@ -2,104 +2,14 @@
 <html>
 <head>
   <link rel="stylesheet" href="navbar.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Product+Sans&display=swap');
-    body {
-      background-image: url("Images/2713.jpg");  
-      color: white;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-    .navbar {
-      margin-bottom: 10rem;
-    }
-    .landing-header {
-      text-align: center;
-      margin-top: 10rem;
-    }
-    .landing-header h1 {
-      font-size: 50px; /* Adjust the font size as desired */
-    }
-    .coming-header {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 75%; /* Set the font size to 75% of the landing header */
-    }
-    .email-input {
-      text-align: center;
-      margin-top: 2rem;
-    }
-    .email-input input[type="email"] {
-      padding: 10px;
-      width: 300px;
-      border-radius: 20px;
-      border: none;
-      font-size: 14px;
-      margin-right: 10px;
-    }
-    .notify-button {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #ffffff;
-      color: black;
-      border-radius: 20px;
-      font-size: 14px;
-      text-decoration: none;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    .notify-button:hover {
-      background-color: black;
-      color: white;
-    }
-    .timer {
-      text-align: center;
-      margin-top: 2rem;
-      display: flex;
-      justify-content: center;
-    }
-    .timer-bubble {
-      display: inline-block;
-      background-color: #ffffff;
-      color: black;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      margin: 0 10px;
-      line-height: 60px;
-      font-size: 24px;
-    }
-    .timer-label {
-      text-align: center;
-      margin-top: 0.5rem;
-      font-size: 14px;
-    }
-    .loading-bar {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #ffffff;
-      height: 40px;
-      border-radius: 20px;
-      margin-top: 2rem;
-    }
-    .loading-progress {
-      background-color: #27ae60;
-      height: 100%;
-      border-radius: 20px;
-      width: 0;
-      transition: width 0.3s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="footer.css">
+  <link rel="stylesheet" href="comingsoon.css">
+  <link rel="stylesheet" href="comingsoon.js">
 </head>
 <body>
+<!-- HTML code for Navbar -->
   <nav class="navbar">
-    <a href="#" class="navbar-brand">FireML</a>
+    <a href="#" class="navbar-brand">BonfireML</a>
     <ul class="navbar-links">
       <li class="navbar-link"><a href="#" data-button="true">Home</a></li>
       <li class="navbar-link"><a href="#" data-button="true">About</a></li>
@@ -107,7 +17,7 @@
       <li class="navbar-link"><a href="#" data-button="true">Contact</a></li>      
     </ul>
   </nav>
-  
+  <!-- All text used in that page -->
   <header class="landing-header">
     <h1>Landing Soon...</h1>
   </header>
@@ -120,7 +30,7 @@
     <input type="email" placeholder="Eg. example@gmail.com">
     <a href="#" class="notify-button">Notify me</a>
   </div>
-  
+  <!-- Timer -->
   <div class="timer">
     <div class="timer-bubble" id="days">00</div>
     <div class="timer-label">Days</div>
@@ -131,52 +41,22 @@
     <div class="timer-bubble" id="seconds">00</div>
     <div class="timer-label">Seconds</div>
   </div>
-  
+  <!-- Loading Bar -->
   <div class="loading-bar">
     <div class="loading-progress" id="progress">0%</div>
   </div>
-
-  <script>
-    // Set the start and end dates (change them to your desired dates)
-    var startDate = new Date("2022-05-01T00:00:00Z").getTime();
-    var endDate = new Date("2023-06-30T23:59:59Z").getTime();
-    
-    // Update the timer every second
-    var timer = setInterval(function() {
-      // Get current date and time
-      var now = new Date().getTime();
-      
-      // Calculate the remaining time
-      var remainingTime = endDate - now;
-      var elapsedTime = now - startDate;
-      
-      // Calculate the progress percentage
-      var progressPercentage = (elapsedTime / (endDate - startDate)) * 100;
-      progressPercentage = Math.min(progressPercentage, 100); // Ensure the progress doesn't exceed 100%
-      
-      // Update the loading progress and display the percentage
-      document.getElementById("progress").innerText = Math.round(progressPercentage) + "%";
-      document.getElementById("progress").style.width = progressPercentage + "%";
-      
-      // Stop the timer when the countdown is over
-      if (remainingTime <= 0) {
-        clearInterval(timer);
-        document.getElementById("progress").innerText = "100%";
-        document.getElementById("progress").style.width = "100%";
-      }
-      
-      // Calculate the days, hours, minutes, and seconds
-      var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-      
-      // Update the timer elements
-      document.getElementById("days").innerText = days.toString().padStart(2, "0");
-      document.getElementById("hours").innerText = hours.toString().padStart(2, "0");
-      document.getElementById("minutes").innerText = minutes.toString().padStart(2, "0");
-      document.getElementById("seconds").innerText = seconds.toString().padStart(2, "0");
-    }, 1000);
-  </script>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="custom-shape-divider-top-1685588587">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,120V73.71c47.79-22.2,103.59-32.17,158-28,70.36,5.37,136.33,33.31,206.8,37.5C438.64,87.57,512.34,66.33,583,47.95c69.27-18,138.3-24.88,209.4-13.08,36.15,6,69.85,17.84,104.45,29.34C989.49,95,1113,134.29,1200,67.53V120Z" opacity=".25" class="shape-fill"></path>
+        <path d="M0,120V104.19C13,83.08,27.64,63.14,47.69,47.95,99.41,8.73,165,9,224.58,28.42c31.15,10.15,60.09,26.07,89.67,39.8,40.92,19,84.73,46,130.83,49.67,36.26,2.85,70.9-9.42,98.6-31.56,31.77-25.39,62.32-62,103.63-73,40.44-10.79,81.35,6.69,119.13,24.28s75.16,39,116.92,43.05c59.73,5.85,113.28-22.88,168.9-38.84,30.2-8.66,59-6.17,87.09,7.5,22.43,10.89,48,26.93,60.65,49.24V120Z" opacity=".5" class="shape-fill"></path>
+        <path d="M0,120V114.37C149.93,67,314.09,54.68,475.83,83.43c43,7.64,84.23,20.12,127.61,26.46,59,8.63,112.48-12.24,165.56-35.4C827.93,42.78,886,24.76,951.2,30,1037.73,37,1123.66,75.71,1200,114.81V120Z" class="shape-fill"></path>
+      </svg>
+    </div>
+    <p class="footer-text">© 2023 BonfireML. All rights reserved.</p>
+  </footer>
+  <!-- Connection with Javascript -->
+  <script src="comingsoon.js"></script>
 </body>
 </html>
