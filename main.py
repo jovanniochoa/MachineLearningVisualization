@@ -2,6 +2,7 @@ import pandas as pd
 from torch.utils.data import Dataset
 import torchaudio
 import torch
+import os
 
 
 class Frame:
@@ -28,7 +29,7 @@ class Frame:
         # get list of all genres to loop through in a list
         genre_list = list(genres_dic.keys())
         for i in range(len(genre_list)):
-            for j in range(100):
+            for j in range(50): # to do: fix so that it checks if file is empty or not
                 if j < 10:
                     genres_dic[f'{genre_list[i]}'].append(f'{self.dir}/{genre_list[i]}/{genre_list[i]}.0000{j}.wav')
                 else:
@@ -45,7 +46,7 @@ class Frame:
         dic_list = []
         for i in range(len(self.genre)):
             dic_list.append(
-                pd.DataFrame.from_dict({'Path': self.path[f'{self.genre[i]}'], 'Genre': f'{self.genre[i]}'}))
+                pd.DataFrame.from_dict({'Path': self.path[f'{self.genre[i]}'], 'Genre': i}))
         dataframe = pd.concat(dic_list, ignore_index=True)
         return dataframe
 
@@ -119,7 +120,7 @@ class SoundDataset(Dataset):
 if __name__ == "__main__":
     DIR = 'Data/genres_original'
     SAMPLE_RATE = 22050
-    NUM_SAMPLES = 22050
+    NUM_SAMPLES = 22050 * 10
 
     if torch.cuda.is_available():
         device = "cuda"
@@ -138,6 +139,9 @@ if __name__ == "__main__":
     df = data.create_df()
     music_ds = SoundDataset(df, mel_spectrogram, SAMPLE_RATE, NUM_SAMPLES, device)
     print(f"There are {len(music_ds)} samples in the dataset.")
-    signal, label = music_ds[0]
+    signal, label = music_ds[100]
+    # print(os.access('Data/genres_original/jazz/jazz.00054.wav', os.R_OK))
 
+
+    # f = Frame(DIR).create_df()
     a = 1
