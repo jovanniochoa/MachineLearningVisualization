@@ -19,7 +19,6 @@ class Prediction:
         with torch.no_grad():
             input = self._get_input(path)
             predictions = self.model(input)
-            # Tensor (1, 10) -> [ [0.1, 0.01, ..., 0.6] ]
             predicted_index = predictions[0].argmax(0)
             predicted = self.class_mapping[predicted_index]
         return predicted
@@ -28,8 +27,8 @@ class Prediction:
         data = [[f'{path}', 0]]
         df = pd.DataFrame(data, columns=['Path', 'Genre'])
         music_ds = SoundDataset(df, self.mel_spectrogram, SAMPLE_RATE, NUM_SAMPLES, "cpu")
-        input = music_ds[0][0]
-        input.unsqueeze_(0)
+        input, _ = music_ds[0]  # Get both signal and label
+        input = input.unsqueeze(0)  # Add a batch dimension
         return input
 
 
@@ -43,8 +42,7 @@ if __name__ == "__main__":
         hop_length=512,
         n_mels=64
     )
-    # change the path to the desired file here
-    path = 'Data/genres_original/blues/blues.00000.wav'
+    path = 'uploads/SongJuan.wav'
     predictor = Prediction(cnn, class_mapping, mel_spectrogram)
     prediction = predictor.predict(path)
     print(prediction)

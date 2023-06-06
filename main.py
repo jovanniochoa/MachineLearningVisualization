@@ -107,7 +107,7 @@ class SoundDataset(Dataset):
 
     def _mix_down_if_necessary(self, signal):
         if signal.shape[0] > 1:
-            signal = torch.min(signal, dim=0, keepdim=True)
+            signal = torch.min(signal, dim=0, keepdim=True)[0]  # Access the first element of the tuple
         return signal
 
     def _get_audio_sample_path(self, index):
