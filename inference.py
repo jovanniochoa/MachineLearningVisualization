@@ -68,3 +68,5 @@ if __name__ == "__main__":
     predicted, expected = predict(cnn, input, target,
                                   class_mapping)
     print(f"Predicted: '{predicted}', expected: '{expected}'")
+
+    a = 1
