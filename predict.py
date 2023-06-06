@@ -8,16 +8,6 @@ from train import SAMPLE_RATE, NUM_SAMPLES, DIR
 from inference import class_mapping
 
 
-def predict(model, input, class_mapping):
-    model.eval()
-    with torch.no_grad():
-        predictions = model(input)
-        # Tensor (1, 10) -> [ [0.1, 0.01, ..., 0.6] ]
-        predicted_index = predictions[0].argmax(0)
-        predicted = class_mapping[predicted_index]
-    return predicted
-
-
 class Prediction:
     def __init__(self, model, class_mapping, transformation):
         self.model = model
