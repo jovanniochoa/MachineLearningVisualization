@@ -44,12 +44,9 @@ class Prediction:
 
 
 if __name__ == "__main__":
-    # load back the model
     cnn = CNNNetwork()
     state_dict = torch.load("feedforwardnet.pth")
     cnn.load_state_dict(state_dict)
-
-    # load urban sound dataset dataset
     mel_spectrogram = torchaudio.transforms.MelSpectrogram(
         sample_rate=SAMPLE_RATE,
         n_fft=1024,
