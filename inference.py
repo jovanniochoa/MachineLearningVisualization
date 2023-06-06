@@ -59,9 +59,9 @@ if __name__ == "__main__":
     #                                   class_mapping)
     #     if predicted != expected:
     #         wrong = wrong + 1
-    # print((500 - wrong)/len(music_ds))
+    # print((1000 - wrong)/len(music_ds))
 
-    input, target = music_ds[439][0], music_ds[439][1] # [batch size, num_channels, fr, time]
+    input, target = music_ds[324][0], music_ds[324][1] # [batch size, num_channels, fr, time]
     input.unsqueeze_(0)
 
     # make an inference

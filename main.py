@@ -29,7 +29,7 @@ class Frame:
         # get list of all genres to loop through in a list
         genre_list = list(genres_dic.keys())
         for i in range(len(genre_list)):
-            for j in range(50): # to do: fix so that it checks if file is empty or not
+            for j in range(100): # to do: fix so that it checks if file is empty or not
                 if j < 10:
                     genres_dic[f'{genre_list[i]}'].append(f'{self.dir}/{genre_list[i]}/{genre_list[i]}.0000{j}.wav')
                 else:

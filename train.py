@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 from main import SoundDataset, Frame
 from cnn import CNNNetwork
 # loss: 2.136171817779541
-BATCH_SIZE = 256
+BATCH_SIZE = 512
 EPOCHS = 1000
 LEARNING_RATE = 0.00001
 
