@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Array Bar Chart</title>
+    <script>
+        function displayBarChart() {
+            var size = parseInt(document.getElementById("arraySize").value);
+
+            // Make a request to the server
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var container = document.getElementById("chartContainer");
+                    container.innerHTML = ""; // Clear existing chart
+
+                    var image = document.createElement("img");
+                    image.src = "data:image/gif;base64," + xhr.responseText;
+                    container.appendChild(image);
+                }
+            };
+
+            // Send the size as a parameter in the request
+            xhr.open("GET", "/display_chart?size=" + size, true);
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    <h1>Random Array Bar Chart</h1>
+    <label for="arraySize">Enter the size of the array:</label>
+    <input type="number" id="arraySize" name="arraySize" min="1" value="10">
+    <button onclick="displayBarChart()">Display Bar Chart</button>
+    <div id="chartContainer"></div>
+</body>
+</html>
