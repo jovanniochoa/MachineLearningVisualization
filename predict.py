@@ -1,3 +1,5 @@
+import os
+from flask import Flask, render_template, request
 import pandas as pd
 import torch
 import torchaudio
@@ -6,6 +8,11 @@ from cnn import CNNNetwork
 from main import SoundDataset, Frame
 from train import SAMPLE_RATE, NUM_SAMPLES, DIR
 from inference import class_mapping
+from pydub import AudioSegment
+
+app = Flask(__name__)
+UPLOAD_FOLDER = 'uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 class Prediction:
@@ -32,7 +39,24 @@ class Prediction:
         return input
 
 
-if __name__ == "__main__":
+@app.route('/')
+def index():
+    return render_template('project1.html')
+
+
+@app.route('/uploads', methods=['POST'])
+def uploads():
+    file = request.files['file']
+    if file:
+        filename = file.filename
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        prediction = get_prediction(filepath)
+        return render_template('result.html', prediction=prediction)
+    return "No file uploaded."
+
+
+def get_prediction(filepath):
     cnn = CNNNetwork()
     state_dict = torch.load("feedforwardnet.pth")
     cnn.load_state_dict(state_dict)
@@ -42,7 +66,10 @@ if __name__ == "__main__":
         hop_length=512,
         n_mels=64
     )
-    path = 'uploads/SongJuan.wav'
     predictor = Prediction(cnn, class_mapping, mel_spectrogram)
-    prediction = predictor.predict(path)
-    print(prediction)
+    prediction = predictor.predict(filepath)
+    return prediction
+
+
+if __name__ == '__main__':
+    app.run()
