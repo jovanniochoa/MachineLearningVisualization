@@ -43,6 +43,9 @@ class Prediction:
 def index():
     return render_template('project1.html')
 
+@app.route('/project1')
+def project1():
+    return render_template('project1.html')
 
 @app.route('/uploads', methods=['POST'])
 def uploads():
