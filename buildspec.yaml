@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - pip install -r requirements.txt -t ./vendor
+      # Other build commands
+
+  # Other phases in your buildspec file
+
+artifacts:
+  files:
+    # List of files to include in the build artifact
